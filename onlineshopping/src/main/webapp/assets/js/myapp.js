@@ -11,7 +11,8 @@ $(function(){
 		$('#allproducts').addClass('active');
 		break;	
 	default:
-		$('#home').addClass('active');
+		$('#allproducts').addClass('active');
+		$('a_'+menu).addClass('active');
 		break;
 	}
 });

@@ -60,8 +60,8 @@
 				<%@ include file="contact.jsp"%>
 			</c:if>
 
-			<c:if test="${userClickAllProducts == true}">
-				<%@ include file="allproducts.jsp"%>
+			<c:if test="${userClickAllProducts == true or userClickCategoryProducts ==  true}">
+				<%@ include file="listproducts.jsp"%>
 			</c:if>
 
 		</div>
