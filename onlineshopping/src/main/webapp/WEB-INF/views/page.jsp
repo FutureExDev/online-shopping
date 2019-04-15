@@ -25,16 +25,18 @@
 
 <script>
 	window.menu = '${title}';
+	window.contextRoot='${contextRoot}';
 </script>
 
 <!-- Bootstrap core CSS -->
 <link href="${css}/bootstrap.min.css" rel="stylesheet" />
-<link href="${css}/bootstrap.flaty.css" rel="stylesheet" />
+<%-- <link href="${css}/bootstrap-flaty.css" rel="stylesheet" /> --%>
+<link href="${css}/bootstrap-readable-theme.css" rel="stylesheet" />
 <!-- Custom styles for this template -->
+
+<link href="${css}/dataTables.bootstrap.css" rel="stylesheet" />
 <link href="${css}/myapp.css" rel="stylesheet">
-<script src="${js}/jquery.js"></script>
-<script src="${js}/bootstrap.min.js"></script>
-<script src="${js}/myapp.js"></script>
+
 </head>
 
 <body>
@@ -60,15 +62,23 @@
 				<%@ include file="contact.jsp"%>
 			</c:if>
 
-			<c:if test="${userClickAllProducts == true or userClickCategoryProducts ==  true}">
+			<c:if
+				test="${userClickAllProducts == true or userClickCategoryProducts ==  true}">
 				<%@ include file="listproducts.jsp"%>
 			</c:if>
 
+			<c:if
+				test="${userClickShowProducts == true}">
+				<%@ include file="singleProduct.jsp"%>
+			</c:if>
 		</div>
 		<!-- Footer -->
 		<%@ include file="./shared/footer.jsp"%>
 		<!-- Bootstrap core JavaScript -->
-
+		<script src="${js}/jquery.js"></script>
+		<script src="${js}/bootstrap.min.js"></script>
+		<script src="${js}/jquery.dataTables.js"></script>
+		<script src="${js}/myapp.js"></script>
 	</div>
 </body>
 

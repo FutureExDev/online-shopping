@@ -4,7 +4,6 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
  */
 body {
-	padding-top: 56px;
 	height: 100%;
 }
 
@@ -28,4 +27,9 @@ html{
 
 footer{
 	margin: 0;
+}
+
+.dataimages{
+	width: 100px;
+	height: 100px;
 }

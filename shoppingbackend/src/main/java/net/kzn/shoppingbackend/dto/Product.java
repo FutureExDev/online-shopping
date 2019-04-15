@@ -26,14 +26,14 @@ public class Product {
 	@Column(name="brand")
 	private String brand;
 	
-	@JsonIgnore
-	@Column(name="description")
+	
+	
 	private String description;
 	
 	@Column(name="unit_price")
 	private double unitPrize;
 	
-	@Column(name="quantity")
+
 	private int quantity;
 	
 	@JsonIgnore
