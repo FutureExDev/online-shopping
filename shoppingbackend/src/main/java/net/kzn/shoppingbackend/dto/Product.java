@@ -33,7 +33,7 @@ public class Product {
 	@Column(name="unit_price")
 	private double unitPrize;
 	
-
+	@Column(name="quantity")
 	private int quantity;
 	
 	@JsonIgnore
