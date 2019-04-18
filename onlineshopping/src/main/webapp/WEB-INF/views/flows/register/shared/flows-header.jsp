@@ -45,47 +45,8 @@
 	<div class="wrapper">
 
 		<!-- Navigation -->
-		<%@ include file="./shared/navbar.jsp"%>
+
+		<%@include file="flows-navbar.jsp" %>
 		<!-- Page Content -->
 
 		<div class="content">
-
-			<c:if test="${userClickHome == true}">
-				<%@ include file="home.jsp"%>
-			</c:if>
-
-			<c:if test="${userClickAbout == true}">
-				<%@ include file="about.jsp"%>
-			</c:if>
-
-			<c:if test="${userClickContact == true}">
-				<%@ include file="contact.jsp"%>
-			</c:if>
-
-			<c:if
-				test="${userClickAllProducts == true or userClickCategoryProducts ==  true}">
-				<%@ include file="listproducts.jsp"%>
-			</c:if>
-
-			<c:if test="${userClickShowProducts == true}">
-				<%@ include file="singleProduct.jsp"%>
-			</c:if>
-			<c:if test="${userClickManageProduct == true}">
-				<%@ include file="manageProduct.jsp"%>
-			</c:if>
-		</div>
-		<!-- Footer -->
-		<%@ include file="./shared/footer.jsp"%>
-		<!-- Bootstrap core JavaScript -->
-		<script src="${js}/jquery.js"></script>
-		<script src="${js}/jquery.validate.js"></script>
-		<script src="${js}/proper.js"></script>
-		<script src="${js}/bootstrap.min.js"></script>
-		<script src="${js}/jquery.dataTables.js"></script>
-		<script src="${js}/bootbox.min.js"></script>
-
-		<script src="${js}/myapp.js"></script>
-	</div>
-</body>
-
-</html>

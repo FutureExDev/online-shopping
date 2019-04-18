@@ -62,6 +62,37 @@ CREATE TABLE product(
 	
 );
 
+
+CREATE TABLE address (
+	id IDENTITY,
+	user_id int,
+	address_line_one VARCHAR(100),
+	address_line_two VARCHAR(100),
+	city VARCHAR(20),
+	state VARCHAR(20),
+	country VARCHAR(20),
+	postal_code VARCHAR(10),
+	is_billing BOOLEAN,
+	is_shipping BOOLEAN,
+	CONSTRAINT fk_address_user_id FOREIGN KEY (user_id ) REFERENCES user_detail (id),
+	CONSTRAINT pk_address_id PRIMARY KEY (id)
+);
+
+
+CREATE TABLE cart (
+	id IDENTITY,
+	user_id int,
+	grand_total DECIMAL(10,2),
+	cart_lines int,
+	CONSTRAINT fk_cart_user_id FOREIGN KEY (user_id ) REFERENCES user_detail (id),
+	CONSTRAINT pk_cart_id PRIMARY KEY (id)
+);
+
+
+
+
+
+
 insert into product(code,name,brand,description,unit_price,quantity,is_active,category_id,supplier_id,purchases,views)
 values('PRDABC123DEFX','iPhone 5s','apple','This is the one of the best phone available in the market',72000.00,12,'true',1,1,4,2);
 
