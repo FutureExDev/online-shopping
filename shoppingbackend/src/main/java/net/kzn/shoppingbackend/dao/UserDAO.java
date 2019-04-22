@@ -6,7 +6,7 @@ import net.kzn.shoppingbackend.dto.Address;
 import net.kzn.shoppingbackend.dto.Cart;
 import net.kzn.shoppingbackend.dto.User;
 
-public interface userDAO {
+public interface UserDAO {
 	
 	boolean addUser(User user);
 	
@@ -17,6 +17,6 @@ public interface userDAO {
 	Address getBillingAddress(User user);
 	List<Address> getListShippingAddress(User user);
 	
-	boolean updateCart(Cart cart);
+	
 	
 }

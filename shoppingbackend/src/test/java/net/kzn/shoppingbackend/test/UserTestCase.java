@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import net.kzn.shoppingbackend.dao.userDAO;
+import net.kzn.shoppingbackend.dao.UserDAO;
 import net.kzn.shoppingbackend.dto.Address;
 import net.kzn.shoppingbackend.dto.Cart;
 import net.kzn.shoppingbackend.dto.User;
@@ -14,7 +14,7 @@ import net.kzn.shoppingbackend.dto.User;
 public class UserTestCase {
 
 	private static AnnotationConfigApplicationContext context;
-	private static userDAO userDAO;
+	private static UserDAO userDAO;
 	private User user = null;
 	private Cart cart = null;
 	private Address address = null;
@@ -26,7 +26,7 @@ public class UserTestCase {
 		context.scan("net.kzn.shoppingbackend");
 		context.refresh();
 
-		userDAO = (userDAO) context.getBean("userDAO");
+		userDAO = (UserDAO) context.getBean("UserDAO");
 	}
 
 	
@@ -39,7 +39,7 @@ public class UserTestCase {
 	 user.setPassword("12345");
 	 
 	 
-	  assertEquals("Failed to add user!",true,userDAO.addUser(user));
+	  assertEquals("Failed to add user!",true,UserDAO.addUser(user));
 	  
 	 
 	  address= new Address();
@@ -51,13 +51,13 @@ public class UserTestCase {
 	   
 	   address.setUserId(user.getId());
 	   
-	   assertEquals("Failed to add Address!",true,userDAO.addAddress(address));
+	   assertEquals("Failed to add Address!",true,UserDAO.addAddress(address));
 	   
 	   if(user.getRole().equals("USER")){
 	   
 	   cart=new Cart(); cart.setUser(user);
 	   
-	   assertEquals("Failed to add Cart!",true,userDAO.addCart(cart));
+	   assertEquals("Failed to add Cart!",true,UserDAO.addCart(cart));
 	   
 	   address= new Address();
 	   address.setAddressLingOne("Room no 3,Pramukh complex,");
@@ -68,7 +68,7 @@ public class UserTestCase {
 	   
 	   address.setUserId(user.getId());
 	   
-	   assertEquals("Failed to Shipping Address!",true,userDAO.addAddress(address));
+	   assertEquals("Failed to Shipping Address!",true,UserDAO.addAddress(address));
 	   
 	    }
 	   
@@ -97,7 +97,7 @@ public class UserTestCase {
 
 		}
 
-		assertEquals("Failed to add user!", true, userDAO.addUser(user));
+		assertEquals("Failed to add user!", true, UserDAO.addUser(user));
 
 	}*/
 	
@@ -105,7 +105,7 @@ public class UserTestCase {
 	/*@Test
 	public void testUpdateCart(){
 		
-		user =userDAO.getbyEmail("kshirsagarc07@gmail.com");
+		user =UserDAO.getbyEmail("kshirsagarc07@gmail.com");
 		
 		cart=user.getCart();
 		
@@ -113,7 +113,7 @@ public class UserTestCase {
 		cart.setCartLines(2);
 		
 		
-		assertEquals("Failed to add Cart!", true, userDAO.updateCart(cart));
+		assertEquals("Failed to add Cart!", true, UserDAO.updateCart(cart));
 	}
 	*/
 	
@@ -127,7 +127,7 @@ public class UserTestCase {
 		 user.setPassword("12345");
 		 
 		 
-		  assertEquals("Failed to add user!",true,userDAO.addUser(user));
+		  assertEquals("Failed to add user!",true,UserDAO.addUser(user));
 		  
 		  
 		  address= new Address();
@@ -139,7 +139,7 @@ public class UserTestCase {
 		   
 		   address.setUser(user);
 		   
-		   assertEquals("Failed to Billing Address!",true,userDAO.addAddress(address));
+		   assertEquals("Failed to Billing Address!",true,UserDAO.addAddress(address));
 		   
 		   
 		   address= new Address();
@@ -151,7 +151,7 @@ public class UserTestCase {
 		   
 		   address.setUser(user);
 		   
-		   assertEquals("Failed to Shipping Address!",true,userDAO.addAddress(address));
+		   assertEquals("Failed to Shipping Address!",true,UserDAO.addAddress(address));
 		   
 		   
 		 
@@ -162,7 +162,7 @@ public class UserTestCase {
 	/*@Test
 	public void testAddress(){
 		
-		User  user=userDAO.getbyEmail("kshirsagarc07@gmail.com");
+		User  user=UserDAO.getbyEmail("kshirsagarc07@gmail.com");
 		
 		  address= new Address();
 		   address.setAddressLingOne("Room no 31,Shyam nagar,");
@@ -173,7 +173,7 @@ public class UserTestCase {
 		   
 		   address.setUser(user);
 		   
-		   assertEquals("Failed to Shipping Address!",true,userDAO.addAddress(address));
+		   assertEquals("Failed to Shipping Address!",true,UserDAO.addAddress(address));
 		
 	}
 	*/

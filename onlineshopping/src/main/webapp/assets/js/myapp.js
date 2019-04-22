@@ -13,6 +13,9 @@ $(function() {
 	case 'Manage Product':
 		$('#manageProduct').addClass('active');
 		break;
+	case 'User Cart':
+		$('#userCart').addClass('active');
+		break;
 	default:
 		if (menu == "Home")
 			break;
@@ -94,16 +97,27 @@ $(function() {
 											+ data
 											+ '/product" class="btn btn-primary"><span class="glyphicon glypicon-eye-open"></span></a> &#160;';
 
-									if (row.quantity < 1) {
-										str += '<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glypicon-shopping-cart"></span></a>';
-
-									} else {
+									if (userRole == 'ADMIN') {
 										str += '<a href="'
 												+ window.contextRoot
-												+ '/cart/add/'
+												+ '/manage/'
 												+ data
-												+ '/product" class="btn btn-success"><span class="glyphicon glypicon-shopping-cart"></span></a>';
+												+ '/product" class="btn btn-warning"><span class="glyphicon glypicon-pencil"></span></a>';
 
+									} else {
+
+										if (row.quantity < 1) {
+											str += '<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glypicon-shopping-cart"></span></a>';
+
+										} else {
+
+											str += '<a href="'
+													+ window.contextRoot
+													+ '/cart/add/'
+													+ data
+													+ '/product" class="btn btn-success"><span class="glyphicon glypicon-shopping-cart"></span></a>';
+
+										}
 									}
 
 									return str;
@@ -369,5 +383,106 @@ $(function() {
 
 				});
 	}
+
+	$loginForm = $('#loginForm');
+
+	if ($loginForm.length) {
+
+		$loginForm.validate({
+
+			rules : {
+
+				username : {
+					required : true,
+					email : true
+				},
+
+				password : {
+					required : true,
+
+				}
+			},
+			messages : {
+				username : {
+					required : 'Please enter the Username!',
+					email : 'Please enter valid email address!'
+				},
+				password : {
+					required : 'Please enter password!'
+				}
+			},
+
+			errorElement : 'em',
+			errorPlacement : function(error, element) {
+
+				error.addClass('help-block');
+				error.insertAfter(element);
+			}
+
+		});
+	}
+
+	var token = $('meta[name="_csrf"]').attr('content');
+	var header = $('meta[name="_csrf_header"]').attr('content');
+
+	if (token.length > 0 && header.length > 0) {
+
+		$(document).ajaxSend(function(e, xhr, options) {
+
+			xhr.setRequestHeader(header, token);
+		});
+
+	}
+	
+	
+	
+	$('button[name="refreshCart"]').click(function(){
+		
+		
+		var cartLineId=$(this).attr('value');
+		
+		var countElement=$('#count_'+cartLineId);
+		
+		var originalCount= countElement.attr('value');
+		var currentCount=countElement.val(); 
+		
+		if(currentCount <1 || currentCount>3){
+			
+			countElement.val(originalCount);
+			
+			bootbox.alert({
+				
+				size:'medium',
+				title:'Error',
+				message:'Product count should be minimum 1 and maximum 3'
+				
+			});
+			
+		}
+		else{
+			
+			var updateUrl=window.contextRoot+'/cart/'+cartLineId+'/update?count='+currentCount;
+			
+			window.location.href=updateUrl;
+		}
+		
+		
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 });

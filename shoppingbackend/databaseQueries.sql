@@ -10,9 +10,9 @@ CREATE TABLE category(
 );
 
 
-insert into category(name,description,image_url,is_active) values('television','This is some description for television!','CAT_1.png','true')
-insert into category(name,description,image_url,is_active) values('Mobile','This is some description for Moblie!','CAT_2.png','true')
-insert into category(name,description,image_url,is_active) values('Laptop','This is some description for Laptop!','CAT_3.png','true')
+insert into category(name,description,image_url,is_active) values('television','This is some description for television!','CAT_1.png',true)
+	insert into category(name,description,image_url,is_active) values('Mobile','This is some description for Moblie!','CAT_2.png',true)
+	insert into category(name,description,image_url,is_active) values('Laptop','This is some description for Laptop!','CAT_3.png',true)
 
 
 CREATE TABLE user_detail(
@@ -22,7 +22,7 @@ CREATE TABLE user_detail(
 	last_name VARCHAR(50),
 	role VARCHAR(50),
 	enable boolean,
-	password VARCHAR(50),
+	password VARCHAR(60),
 	email VARCHAR(100),
 	contact_number varchar(15),
 	
@@ -30,15 +30,18 @@ CREATE TABLE user_detail(
 );
 
 INSERT INTO user_detail (first_name,last_name,role,enable,password,email,contact_number) 
-values('Virat','Kohli','ADMIN',true,'admin','vk@gmail.com','8888888888');
-
-INSERT INTO user_detail (first_name,last_name,role,enable,password,email,contact_number) 
-values('Ravindra','Jadeja','SUPPLIER',true,'12345','rj@gmail.com','999999999');
+values('Virat','Kohli','ADMIN',true,'$2b$10$4kP.b6vsq8Q7EAVYKLvq8uuoP1xYd28U/ZpOZlf4MvcnrtW28sCIm','vk@gmail.com','8888888888');
+//admin
 
 
 INSERT INTO user_detail (first_name,last_name,role,enable,password,email,contact_number) 
-values('Ravichandra','Ashwin','SUPPLIER',true,'12345','ra@gmail.com','7777777777');
+values('Ravindra','Jadeja','SUPPLIER',true,'$2b$10$U2V.cRAHjUUC5eG5pW2ciO.0d4rT3GBhLdyH.l284nUisGmYisWVa','rj@gmail.com','999999999');
+//12345
 
+
+INSERT INTO user_detail (first_name,last_name,role,enable,password,email,contact_number) 
+values('Ravichandra','Ashwin','USER',true,'$2b$10$mG0EGYltSPwn8xqHT1gWnuNEjC33fG06nwyc98blm0LrckukzXGkO','ra@gmail.com','7777777777');
+//12345
 
 
 CREATE TABLE product(
@@ -103,6 +106,24 @@ values('FEFABC123DEFX','Samsung 5s','Samsung','This is the one of the best phone
 insert into product(code,name,brand,description,unit_price,quantity,is_active,category_id,supplier_id,purchases,views)
 values('34343C123DEFX','ONE PLUS','ONE PLUS','This is the one of the best phone available in the market',7000.00,62,true,3,3,44,2);
 
+
+
+
+
+CREATE TABLE cart_line(
+
+	id IDENTITY,
+	cart_id int,
+	total DECIMAL(10,2),
+	product_id int,
+	product_count int,
+	buying_price DECIMAL(10,2),
+	is_available boolean,
+	
+	CONSTRAINT fk_cartline_cart_id FOREIGN KEY (cart_id) REFERENCES cart(id),
+	CONSTRAINT fk_cartline_product_id FOREIGN KEY (product_id) REFERENCES product(id),
+	CONSTRAINT pk_cartline_id PRIMARY KEY(id)
+);
 
 
 

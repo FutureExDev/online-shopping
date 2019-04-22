@@ -1,5 +1,6 @@
 <div>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix="security"   uri="http://www.springframework.org/security/tags"%>
 	<div class="row">
 		<div class="col-xs-12">
 
@@ -36,6 +37,8 @@
 				Price: <strong>&#8377;${product.unitPrize}/-</strong>
 			</h4>
 			<hr />
+			
+			<security:authorize access="hasAuthority('USER')">
 			<c:choose>
 				<c:when test="${product.quantity<1}">
 					<h6>Quantity Available: <span style="color:red"> Out of Stock!</span></h6>
@@ -53,6 +56,14 @@
 					</a>
 				</c:otherwise>
 			</c:choose>
+</security:authorize>
+<security:authorize  access="hasAuthority('ADMIN')">
+<a href="${contextRoot}/manage/${product.id}/product"
+						class="btn btn-warning"> <span
+						class="glyphicon glyphicon-pencil"></span>Edit
+					</a>
+
+</security:authorize>
 
 			 &#160;<a href="${contextRoot}/show/all/products" class="btn btn-primary">Back</a>
 

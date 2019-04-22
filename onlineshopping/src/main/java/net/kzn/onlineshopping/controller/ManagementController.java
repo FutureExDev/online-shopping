@@ -38,8 +38,6 @@ public class ManagementController {
 
 	private static Logger logger = LoggerFactory.getLogger(ManagementController.class);
 
-	
-	
 	@RequestMapping(value = "/{id}/product", method = RequestMethod.GET)
 	public ModelAndView showEditProducts(@PathVariable int id) {
 
@@ -50,7 +48,7 @@ public class ManagementController {
 
 		Product nproduct = productDAO.get(id);
 		mv.addObject("product", nproduct);
-			
+
 		return mv;
 	}
 
@@ -70,8 +68,7 @@ public class ManagementController {
 		if (operation != null) {
 			if (operation.equals("product")) {
 				mv.addObject("message", "Product Submitted Successfully!");
-			}
-			else{
+			} else {
 				mv.addObject("message", "Category Submitted Successfully!");
 			}
 		}
@@ -83,17 +80,14 @@ public class ManagementController {
 	public String handleProdcutSubmission(@Valid @ModelAttribute("product") Product nproduct, BindingResult result,
 			Model model, HttpServletRequest request) {
 
-		
-		if(nproduct.getId()==0){
+		if (nproduct.getId() == 0) {
 			new ProductValidator().validate(nproduct, result);
-			
-		}
-		else{
-			if(!nproduct.getFile().getOriginalFilename().equals("")){
+
+		} else {
+			if (!nproduct.getFile().getOriginalFilename().equals("")) {
 				new ProductValidator().validate(nproduct, result);
 			}
 		}
-		
 
 		if (!nproduct.getFile().getOriginalFilename().equals("")) {
 			FileUploadUtility.uploadFile(request, nproduct.getFile(), nproduct.getCode());
@@ -111,14 +105,12 @@ public class ManagementController {
 		nproduct.setSupplierId(1);
 		logger.info(nproduct.toString());
 
-		if(nproduct.getId()==0)
-		{
-		productDAO.add(nproduct);
-		}
-		else{
+		if (nproduct.getId() == 0) {
+			productDAO.add(nproduct);
+		} else {
 			productDAO.update(nproduct);
 		}
-	
+
 		return "redirect:/manage/product?operation=product";
 	}
 
@@ -142,21 +134,19 @@ public class ManagementController {
 	public List<Category> getCategories() {
 		return categoryDAO.list();
 	}
-	
+
 	@ModelAttribute("category")
-	public Category getCategory(){
-		
+	public Category getCategory() {
+
 		return new Category();
 	}
-	
-	@RequestMapping(value="/category",method=RequestMethod.POST)
-	public String handleCategorySubmission(@ModelAttribute(value="category")Category category ){
-		
+
+	@RequestMapping(value = "/category", method = RequestMethod.POST)
+	public String handleCategorySubmission(@ModelAttribute(value = "category") Category category) {
+
 		categoryDAO.addCategory(category);
-		
+
 		return "redirect:/manage/product?operation=category";
 	}
-	
-	
 
 }
