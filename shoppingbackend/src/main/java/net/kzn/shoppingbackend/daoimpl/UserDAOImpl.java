@@ -103,4 +103,14 @@ public class UserDAOImpl implements UserDAO {
 		}
 	}
 
+	@Override
+	public Address getAddress(int addressId) {
+		try {			
+			return sessionFactory.getCurrentSession().get(Address.class, addressId);			
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			return null;
+		}
+	}
 }

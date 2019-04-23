@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import net.kzn.shoppingbackend.dao.CartLineDAO;
 import net.kzn.shoppingbackend.dto.Cart;
 import net.kzn.shoppingbackend.dto.CartLine;
+import net.kzn.shoppingbackend.dto.OrderDetail;
 
 @Repository("cartLineDAO")
 @Transactional
@@ -74,11 +75,11 @@ public class CartLineDAOImpl implements CartLineDAO {
 
 	@Override
 	public List<CartLine> listAvailable(int cartId) {
-		String query = "FROM CartLine WHERE cartId=:cartId AND avilable=:avilable";
+		String query = "FROM CartLine WHERE cartId=:cartId AND isAvailable=:available";
 
 		return sessionFactory.getCurrentSession().createQuery(query, CartLine.class)
 				.setParameter("cartId", cartId)
-				.setParameter("avilable", true)
+				.setParameter("available", true)
 				.getResultList();
 	}
 
@@ -105,6 +106,20 @@ public class CartLineDAOImpl implements CartLineDAO {
 		try {
 
 			sessionFactory.getCurrentSession().update(cart);
+			return true;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean addOrderDetail(OrderDetail orderDetail) {
+	
+		try {
+
+			sessionFactory.getCurrentSession().persist(orderDetail);
 			return true;
 
 		} catch (Exception e) {

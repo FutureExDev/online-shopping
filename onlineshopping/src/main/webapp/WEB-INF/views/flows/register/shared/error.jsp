@@ -30,7 +30,9 @@
 </script>
 
 <!-- Bootstrap core CSS -->
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+	rel="stylesheet">
 <link href="${css}/bootstrap.min.css" rel="stylesheet" />
 <%-- <link href="${css}/bootstrap-flaty.css" rel="stylesheet" /> --%>
 <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet" />
@@ -43,54 +45,62 @@
 
 <body>
 
-
 	<div class="wrapper">
 
-		<!-- Navigation -->
-		<%@ include file="./shared/navbar.jsp"%>
-		<!-- Page Content -->
-
+	    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	        <div class="container">
+	            <!-- Brand and toggle get grouped for better mobile display -->
+	            <div class="navbar-header">
+	                <a class="navbar-brand" href="${contextRoot}/home">Home</a>
+	            </div>
+			</div>
+		</nav>
+			
+		
 		<div class="content">
+		
+			<div class="container">
+			
+				<div class="row">
+				
+					<div class="col-xs-12">
+					
+						
+						<div class="jumbotron">
+						
+							<h1>Please contact your administrator!</h1>
+							<hr/>
+						
+							<blockquote style="word-wrap:break-word">
+								
+								${flowExecutionException}
+							
+							</blockquote>						
 
-			<c:if test="${userClickHome == true}">
-				<%@ include file="home.jsp"%>
-			</c:if>
-
-			<c:if test="${userClickAbout == true}">
-				<%@ include file="about.jsp"%>
-			</c:if>
-
-			<c:if test="${userClickContact == true}">
-				<%@ include file="contact.jsp"%>
-			</c:if>
-
-			<c:if
-				test="${userClickAllProducts == true or userClickCategoryProducts ==  true}">
-				<%@ include file="listproducts.jsp"%>
-			</c:if>
-
-			<c:if test="${userClickShowProducts == true}">
-				<%@ include file="singleProduct.jsp"%>
-			</c:if>
-			<c:if test="${userClickManageProduct == true}">
-				<%@ include file="manageProduct.jsp"%>
-			</c:if>
-			<c:if test="${userClickShowCart == true}">
-				<%@ include file="cart.jsp"%>
-			</c:if>
+							<blockquote style="word-wrap:break-word">
+								
+								${rootCauseException}
+							
+							</blockquote>						
+						
+						</div>
+						
+											
+					</div>					
+				
+				</div>
+			
+			</div>
+							
 		</div>
-		<!-- Footer -->
-		<%@ include file="./shared/footer.jsp"%>
-		<!-- Bootstrap core JavaScript -->
-		<script src="${js}/jquery.js"></script>
-		<script src="${js}/jquery.validate.js"></script>
-		<script src="${js}/proper.js"></script>
-		<script src="${js}/bootstrap.min.js"></script>
-		<script src="${js}/jquery.dataTables.js"></script>
-		<script src="${js}/bootbox.min.js"></script>
 
-		<script src="${js}/myapp.js"></script>
+		
+		<%@include file="../../../flows/register/shared/flows-footer.jsp"%>
+
 	</div>
+		
+	
 </body>
+
 
 </html>

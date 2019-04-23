@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.kzn.shoppingbackend.dto.Cart;
 import net.kzn.shoppingbackend.dto.CartLine;
+import net.kzn.shoppingbackend.dto.OrderDetail;
 
 public interface CartLineDAO {
 
@@ -22,5 +23,7 @@ public interface CartLineDAO {
 	public CartLine getByCartAndProduct(int cartId, int productId);
 	
 	boolean updateCart(Cart cart);
+	
+	boolean addOrderDetail(OrderDetail orderDetail);
 
 }

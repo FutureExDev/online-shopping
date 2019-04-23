@@ -1,5 +1,7 @@
 package net.kzn.onlineshopping.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,9 @@ import net.kzn.onlineshopping.service.CartService;
 @RequestMapping(value="/cart")
 public class CartController {
 
+	
+	private final static Logger logger = LoggerFactory.getLogger(CartController.class);
+	
 	@Autowired
 	CartService cartService;
 	
@@ -33,6 +38,9 @@ public class CartController {
 		case "maximum":
 			view.addObject("message","Cartline has Reached to max count!");
 			break;
+		case "modified":
+			view.addObject("message","One or more product inside the cart has been modified!");
+			break;
 		case "unavailable":
 			view.addObject("message","Product quantity is not available!");
 			break;
@@ -42,6 +50,17 @@ public class CartController {
 		}
 		
 		}
+		else{
+			
+			String response=cartService.validateCartLine();
+			if(response.equals("result=modified")){
+				view.addObject("message","One or more product inside the cart has been modified!");
+			}
+		}
+		
+		
+		
+		
 		view.addObject("title","User Cart");
 		view.addObject("userClickShowCart",true);
 		view.addObject("cartLines",cartService.getCartLines());	
@@ -78,4 +97,20 @@ public class CartController {
 		
 		
 	}
+	
+	
+	@RequestMapping(value="/validate")
+	public String validateCart(){
+		
+		String response=cartService.validateCartLine();
+		
+		if(!response.equals("result=success")){
+			return "redirect:/cart/show?"+response;
+		}
+		else{
+			return "redirect:/cart/checkout";
+		}
+	}
+	
+	
 }

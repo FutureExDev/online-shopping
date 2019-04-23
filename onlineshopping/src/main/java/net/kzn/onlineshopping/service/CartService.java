@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.kzn.onlineshopping.model.UserModel;
 import net.kzn.shoppingbackend.dao.CartLineDAO;
@@ -17,6 +18,8 @@ import net.kzn.shoppingbackend.dto.Product;
 @Service("cartService")
 public class CartService {
 
+	
+	
 	@Autowired
 	private CartLineDAO cartLineDAO;
 
@@ -138,5 +141,67 @@ public class CartService {
 		
 		return response;
 	}
+
+	public  String validateCartLine() {
+	
+		Cart  cart= this.getCart();
+		List<CartLine> cartLines=cartLineDAO.list(cart.getId());
+		
+		double grnadTotal=0.0;
+		int lineCount=0;
+		String response="result=success";
+		boolean change=false;
+		Product product=null;
+		
+		for(CartLine cartLine: cartLines){
+			
+			product=cartLine.getProduct();
+			change=false;
+			
+			if((!product.isActive() && product.getQuantity()==0) && cartLine.isAvailable()){
+				
+				cartLine.setAvailable(false);
+				change=true;
+			}
+			
+			if(cartLine.getBuyingPrice()!=product.getUnitPrize()){
+				
+				cartLine.setBuyingPrice(product.getUnitPrize());
+				
+				cartLine.setTotal(product.getUnitPrize() * cartLine.getProductCount());
+				change=true;
+				
+			}
+			
+			if(cartLine.getProductCount()>product.getQuantity()){
+				
+				cartLine.setProductCount(product.getQuantity());
+				cartLine.setTotal(product.getUnitPrize() * cartLine.getProductCount());
+				change=true;
+				
+			}
+			
+			if(change){
+				cartLineDAO.update(cartLine);
+				
+				response="result=modified";
+			}
+			
+			grnadTotal+=cartLine.getTotal();
+			lineCount++;
+			
+		}
+		
+		cart.setCartLines(lineCount);
+		cart.setGrandTotal(grnadTotal);
+		cartLineDAO.updateCart(cart);
+		
+		return response;
+	}
+	
+	
+	
+	
+	
 
 }
